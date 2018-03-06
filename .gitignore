@@ -1,0 +1,7 @@
+# Directories to ignore
+.idea/
+out/
+lib/
+
+# Files to ignore
+*.class
