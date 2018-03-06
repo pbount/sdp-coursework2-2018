@@ -12,7 +12,7 @@ class EncipherTest {
         assertEquals("g", p("f",1))
         assertEquals("z", p("y",1))
 
-        // Full rotation
+        // Testing full rotation
         assertEquals("a", p("a",26))
         assertEquals("z", p("z",26))
         assertEquals("f", p("f",26))
@@ -27,13 +27,13 @@ class EncipherTest {
         assertEquals("fghi", encipher("abcd", 5))
         assertEquals("tuvw", encipher("opqr", 5))
 
-        // Text including full rotation
+        // Text including edge cases
         assertEquals("yzabcd", encipher("xyzabc", 1))
         assertEquals("bcdefghijklmnopqrstuvwxyza", encipher("abcdefghijklmnopqrstuvwxyz", 1))
         assertEquals("yzabcd", encipher("tuvwxy", 5))
         assertEquals("klmnopqrstuvwxyzabcdefghij", encipher("abcdefghijklmnopqrstuvwxyz", 10))
 
-        // Text including spaces and full rotation
+        // Text including spaces and edge cases
         assertEquals("yzabcd yzabcd yzabcd", encipher("xyzabc xyzabc xyzabc", 1))
     }
 }
