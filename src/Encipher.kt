@@ -1,4 +1,8 @@
-
+/**
+ *   Receives a String and returns a new string in which the letters in of the string
+ *   have been rotated by n characters.
+ *
+ */
 fun encipher(s: String, n: Int): String {
     if(n < 0 || n > 25) {
         println("n should be between 0 and 25")
@@ -9,15 +13,18 @@ fun encipher(s: String, n: Int): String {
        else -> p(s.substring(0,1),n) + encipher(s.drop(1),n)
 
     }
-
 }
 
-fun p(input: String, rotate:Int):String{
 
+/**
+ *   Receives a String and returns a single character string which represents the first
+ *   character of the string rotated by n characters.
+ */
+fun p(input: String, rotate:Int):String{
 
     if(input == " ") return " "
     val myArrayOfLetters = arrayOf("a","b","c","d","e","f","g","h","i","j","k","l","m","n",
-            "o","p","q","r","s","t","u","v","w,","x","y","z")
+            "o","p","q","r","s","t","u","v","w","x","y","z")
     val indexLimit = 25
 
     val idx = myArrayOfLetters.indexOf(input.toLowerCase())
@@ -35,7 +42,6 @@ fun p(input: String, rotate:Int):String{
         true -> result.toUpperCase()
         false -> result
     }
-
 }
 
 
@@ -46,6 +52,4 @@ fun main(args: Array<String>){
     val newString = encipher(oldStr,25)
     println(newString)
     //println(newString.length)
-
-
 }
