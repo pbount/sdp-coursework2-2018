@@ -1,55 +1,21 @@
 /**
- *   Receives a String and returns a new string in which the letters in of the string
- *   have been rotated by n characters.
- *
+ *    Receives a String and an Int and shifts each alphabetical character regardless of letter case
+ *    by n characters. All remaining numeric and punctuation characters remain unaffected.
+ *    Example:  [abcd!!] -> [bcde!!]
  */
-fun encipher(s: String, n: Int): String {
-    if(n < 0 || n > 25) {
-        println("n should be between 0 and 25")
-        System.exit(-1)
+fun encipher(str: String, n: Int): String{
+
+    tailrec fun helper(remStr: String, n:Int, resultSoFar: String): String {
+        return when {
+            remStr.isEmpty() -> resultSoFar
+            remStr[0].isUpperCase() -> helper(remStr.drop(1),n,
+                    resultSoFar + ((remStr[0].toInt() + n - 65) % 26 + 65).toChar().toString())
+
+            remStr[0].isLowerCase() -> helper(remStr.drop(1),n,resultSoFar +
+                    ((remStr[0].toInt() + n - 97) % 26 + 97).toChar().toString())
+
+            else -> helper(remStr.drop(1),n, resultSoFar +remStr[0].toString())
+        }
     }
-    return when {
-       s.isEmpty() -> ""
-       else -> p(s.substring(0,1),n) + encipher(s.drop(1),n)
-
-    }
-}
-
-
-/**
- *   Receives a String and returns a single character string which represents the first
- *   character of the string rotated by n characters.
- */
-fun p(input: String, rotate:Int):String{
-
-    if(input == " ") return " "
-    val myArrayOfLetters = arrayOf("a","b","c","d","e","f","g","h","i","j","k","l","m","n",
-            "o","p","q","r","s","t","u","v","w","x","y","z")
-    val indexLimit = 25
-
-    val idx = myArrayOfLetters.indexOf(input.toLowerCase())
-
-    val result: String = if (idx + rotate > indexLimit){
-
-         myArrayOfLetters[idx + rotate - myArrayOfLetters.size]
-
-    } else {
-
-        myArrayOfLetters[idx + rotate]
-    }
-
-    return when(input[0].isUpperCase()){
-        true -> result.toUpperCase()
-        false -> result
-    }
-}
-
-
-fun main(args: Array<String>){
-    val oldStr = " a "
-    //println(myArrayOfLetters.indexOf("A"))
-
-    val newString = encipher(oldStr,25)
-    println(newString)
-    //println(newString.length)
+    return helper(str,n,"")
 }

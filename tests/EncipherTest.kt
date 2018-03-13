@@ -7,16 +7,16 @@ class EncipherTest {
     @Test
     fun characterEncipherTest() {
         // Single step rotation
-        assertEquals("b", p("a",1))
-        assertEquals("a", p("z",1))
-        assertEquals("g", p("f",1))
-        assertEquals("z", p("y",1))
+        assertEquals("b", encipher("a",1))
+        assertEquals("a", encipher("z",1))
+        assertEquals("g", encipher("f",1))
+        assertEquals("z", encipher("y",1))
 
         // Testing full rotation
-        assertEquals("a", p("a",26))
-        assertEquals("z", p("z",26))
-        assertEquals("f", p("f",26))
-        assertEquals("y", p("y",26))
+        assertEquals("a", encipher("a",26))
+        assertEquals("z", encipher("z",26))
+        assertEquals("f", encipher("f",26))
+        assertEquals("y", encipher("y",26))
     }
 
     @Test
@@ -35,5 +35,12 @@ class EncipherTest {
 
         // Text including spaces and edge cases
         assertEquals("yzabcd yzabcd yzabcd", encipher("xyzabc xyzabc xyzabc", 1))
+
     }
+
+    @Test
+    fun tailRecursionTest(){
+        assertEquals("b".repeat(10000), encipher("a".repeat(10000), 1))
+    }
+
 }
