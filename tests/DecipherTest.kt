@@ -1,9 +1,23 @@
 import org.junit.Test
-
 import org.junit.Assert.*
-import kotlin.test.assertTrue
 
 class DecipherTest {
+
+    @Test
+    fun shiftStringTest(){
+        val shouldPass:List<String> = listOf(
+                "a",
+                "A",
+                "abcd",
+                "ThIs Is A SmALL String",
+                "JustAWord",
+                "These should all pass",
+                "Test1nG s0m3 Num83rs",
+                "With   Multiple    Spaces",
+                "With   Sp3$1aL   Ch@r@ct3rs!!!!"
+        )
+        shouldPass.forEach { println("Testing: $it"); assertEquals(it,shiftString(encipher(it, 5),5)) }
+    }
 
     @Test
     fun doesntEndWith() {
@@ -22,8 +36,8 @@ class DecipherTest {
                 "The word AII contains two capital i's"
         )
 
-        shouldBeTrue.forEach { assertEquals(true,doesntEndWith(it)) }
-        shouldBeFalse.forEach { assertEquals(false,doesntEndWith(it)) }
+        shouldBeTrue.forEach { println("Testing: $it"); assertEquals(true,doesntEndWith(it)) }
+        shouldBeFalse.forEach { println("Testing: $it"); assertEquals(false,doesntEndWith(it)) }
     }
 
 
@@ -39,47 +53,58 @@ class DecipherTest {
                 "O A I E K J N M L M O P",
                 "There is no single letter word G",
                 "The space in the word G oogle ruins this test"
-
         )
 
-        shouldPass.forEach { assertEquals(true, singleLetterWorlds(it)) }
-        shouldFail.forEach { assertEquals(false, singleLetterWorlds(it)) }
+        shouldPass.forEach { println("Testing: $it"); assertEquals(true, singleLetterWorlds(it)) }
+        shouldFail.forEach { println("Testing: $it"); assertEquals(false, singleLetterWorlds(it)) }
     }
 
     @Test
     fun afterQisUTest() {
-        val shouldPass = "Quest query whatever"
-        val shouldPass1 = "Questing in wow Q"
-        val shouldFail = "qwerty should fail because it's not common english"
-        val shouldFail1 = "qr quest Q test"
-        assertTrue(afterQisU(shouldPass))
-        assertTrue(afterQisU(shouldPass1))
-        assertFalse(afterQisU(shouldFail))
-        assertFalse(afterQisU(shouldFail1))
+        val shouldPass:List<String> = listOf(
+                "Quest query whatever",
+                "Questing in wow Q"
+        )
 
+        val shouldFail:List<String> = listOf(
+                "qwerty should fail because it's not common english",
+                "qr quest Q test"
+        )
+
+        shouldPass.forEach { println("Testing: $it"); assertEquals(true, singleLetterWorlds(it)) }
+        shouldFail.forEach { println("Testing: $it"); assertEquals(false, singleLetterWorlds(it)) }
     }
 
 
     @Test
     fun doesntContainOnlyConsonantsTest() {
-        val shouldPass = "Awesome beautiful weather Birmingham not"
-        val shouldPass1 = "QWrtxfe mjklbnedfg"
-        val shouldFail = "QWrtxf mjklbndfg"
+        val shouldPass:List<String> = listOf(
+                "Awesome beautiful weather Birmingham not",
+                "QWrtxfe mjklbnedfg"
+        )
 
-        assertTrue(doesntContainOnlyConsonants(shouldPass))
-        assertTrue(doesntContainOnlyConsonants(shouldPass1))
-        assertFalse(doesntContainOnlyConsonants(shouldFail))
+        val shouldFail:List<String> = listOf(
+                "Thjs js nqt q wqrd",
+                "Thls shqvld nGvGr pqss"
+        )
+
+        shouldPass.forEach { println("Testing: $it"); assertEquals(true, singleLetterWorlds(it)) }
+        shouldFail.forEach { println("Testing: $it"); assertEquals(false, singleLetterWorlds(it)) }
     }
 
 
     @Test
     fun setOfRulesTest() {
-        val shouldPass = "Awesome beautiful weather Birmingham not Quest query whatever I am a man who walks alone"
-        val shouldPass1 = "QUrtxfe mjklbnedfg Questing in wow A train"
-        val shouldFailSx = "awesome day sx"
+        val shouldPass:List<String> = listOf(
+                "Awesome beautiful weather Birmingham not Quest query whatever I am a man who walks alone",
+                "QUrtxfe mjklbnedfg Questing in wow A train"
+        )
 
-        assertTrue(setOfRules(shouldPass))
-        assertTrue(setOfRules(shouldPass1))
-        assertFalse(setOfRules(shouldFailSx))
+        val shouldFail:List<String> = listOf(
+                "awesome day sx"
+        )
+
+        shouldPass.forEach { println("Testing: $it"); assertEquals(true, singleLetterWorlds(it)) }
+        shouldFail.forEach { println("Testing: $it"); assertEquals(false, singleLetterWorlds(it)) }
     }
 }
