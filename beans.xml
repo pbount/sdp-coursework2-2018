@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:list id="myList" value-type="java.lang.String" list-class="java.util.ArrayList">
+        <value>of</value> <value>to</value> <value>in</value> <value>it</value> <value>is</value>
+        <value>be</value> <value>as</value> <value>at</value> <value>so</value> <value>we</value>
+        <value>he</value> <value>by</value> <value>or</value> <value>on</value> <value>do</value>
+        <value>if</value> <value>me</value> <value>my</value> <value>up</value> <value>an</value>
+        <value>go</value> <value>no</value> <value>us</value> <value>am</value> <value>the</value>
+        <value>and</value> <value>for</value> <value>are</value> <value>but</value> <value>not</value>
+        <value>you</value> <value>all</value> <value>any</value> <value>can</value> <value>had</value>
+        <value>her</value> <value>was</value> <value>one</value> <value>our</value> <value>out</value>
+        <value>day</value> <value>get</value> <value>has</value> <value>him</value> <value>his</value>
+        <value>how</value> <value>man</value> <value>new</value> <value>now</value> <value>old</value>
+        <value>see</value> <value>two</value> <value>way</value> <value>who</value> <value>boy</value>
+        <value>did</value> <value>its</value> <value>let</value> <value>put</value> <value>say</value>
+        <value>she</value> <value>too</value> <value>use</value> <value>that</value> <value>with</value>
+        <value>have</value><value>this</value> <value>will</value> <value>your</value> <value>from</value>
+        <value>they</value> <value>know</value> <value>want</value> <value>been</value> <value>good</value>
+        <value>much</value> <value>some</value> <value>time</value>
+    </util:list>
+</beans>
+
