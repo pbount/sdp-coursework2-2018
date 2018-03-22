@@ -1,7 +1,7 @@
 # sdp-coursework2-2018
-#####By Vasilios Davios, Pavlos Bountagkidis
+###### By Vasilios Davios, Pavlos Bountagkidis
 
-##Objective
+## Objective
 The problem is a programmatic implementation of Caesar (De)Cipher consisting of two parts each focused on a main function:
 
 ```encipher(s, n)``` and ```decipher(s)```
@@ -15,17 +15,17 @@ Example: ```encipher("a",1)``` would produce ```b```, ```encipher("x",3)``` woul
 ### ```decipher(s)```
 This function deciphers a previously enciphered string, without however knowing the number of steps with which the string was enciphered. The number of steps must be deduced programmatically and then applied to the enciphered string to get the original text.
 
-##Solution
+## Solution
 
 ### Approach to ```encipher(s, n)```
 To encipher each character of the ```s``` string, the numeric representations from the ASCII table were used for the uppercase and lowercase representations of each alphabetical character. Since these characters are represented in order, (65-90 for Uppercase, 97-122 for lowercase) the ranges 65-90 and 97-122 were used directly to receive the enciphered character.
 
 The formula used for enciphering a character was:
 
-######Uppercase:
+###### Uppercase:
 ```(x + n - 65) % 26 + 65)``` where ```x``` = the numeric representation of the uppercase character, ```n``` = The number of steps the character is to be moved.
 
-######Lowercase:
+###### Lowercase:
 ```(x + n - 97) % 26 + 97``` where ```x``` = the numeric representation of the lowercase character, ```n``` = The number of steps the character is to be moved.
 
 ### Approach to ```decipher(s)```
