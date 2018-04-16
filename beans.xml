@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <util:list id="myList" value-type="java.lang.String" list-class="java.util.ArrayList">
+
+    <!-- List with most frequent words -->
+
+    <util:list id="listWitMostCommonWords" value-type="java.lang.String" list-class="java.util.ArrayList">
         <value>of</value> <value>to</value> <value>in</value> <value>it</value> <value>is</value>
         <value>be</value> <value>as</value> <value>at</value> <value>so</value> <value>we</value>
         <value>he</value> <value>by</value> <value>or</value> <value>on</value> <value>do</value>
@@ -21,5 +27,36 @@
         <value>they</value> <value>know</value> <value>want</value> <value>been</value> <value>good</value>
         <value>much</value> <value>some</value> <value>time</value>
     </util:list>
+
+
+    <!-- List of consonants -->
+
+    <util:list id="consonantsList" value-type="java.lang.Character" list-class="java.util.ArrayList">
+        <value>b</value> <value>c</value> <value>d</value> <value>f</value> <value>g</value>
+        <value>h</value> <value>j</value> <value>k</value> <value>l</value> <value>m</value>
+        <value>n</value> <value>p</value> <value>q</value> <value>r</value> <value>s</value>
+        <value>t</value> <value>v</value> <value>x</value> <value>z</value> <value>w</value>
+    </util:list>
+
+
+    <!-- Most Frequent Double letters -->
+
+    <util:list id="mostFrequentDoubleLettersList" value-type="java.lang.String" list-class="java.util.ArrayList">
+        <value>ss</value> <value>ee</value> <value>tt</value>
+        <value>ff</value> <value>ll</value> <value>mm</value>
+        <value>oo</value>
+    </util:list>
+
+    <!-- Most Frequent letters -->
+    <util:list id="mostFrequentCharacters" value-type="java.lang.Character" list-class="java.util.ArrayList">
+        <value>e</value> <value>t</value> <value>a</value>
+        <value>o</value> <value>i</value> <value>n</value>
+        <value>s</value> <value>r</value> <value>h</value>
+    </util:list>
+
+
+
+
 </beans>
+
 
