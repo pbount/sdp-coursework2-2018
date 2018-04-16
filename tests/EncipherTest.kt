@@ -1,8 +1,15 @@
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.ExpectedException
+import kotlin.test.assertEquals
 
-import org.junit.Assert.*
 
 class EncipherTest {
+
+
+    @Rule
+    @JvmField
+    var expectedException = ExpectedException.none()!!
 
     @Test
     fun characterEncipherTest() {
@@ -12,11 +19,13 @@ class EncipherTest {
         assertEquals("g", encipher("f",1))
         assertEquals("z", encipher("y",1))
 
-        // Testing full rotation
-        assertEquals("a", encipher("a",26))
-        assertEquals("z", encipher("z",26))
-        assertEquals("f", encipher("f",26))
-        assertEquals("y", encipher("y",26))
+    }
+
+    @Test
+    fun shouldThrowIllegalArgumentException(){
+        expectedException.expect(IllegalArgumentException :: class.java)
+        expectedException.expectMessage("Shift must be between 0 and 25")
+        encipher("b", -1)
     }
 
     @Test
@@ -35,7 +44,6 @@ class EncipherTest {
 
         // Text including spaces and edge cases
         assertEquals("yzabcd yzabcd yzabcd", encipher("xyzabc xyzabc xyzabc", 1))
-
     }
 
     @Test

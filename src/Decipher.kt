@@ -1,15 +1,12 @@
-import org.springframework.beans.factory.BeanFactory
-import org.springframework.context.support.ClassPathXmlApplicationContext
-
 //--------------- "Helper" Functions ---------------//
 
-fun shiftString(str: String, n: Int):String {
+fun shiftString(str: String, n: Int): String {
 
     val s: Int = 26 - modulus(n,26)
-    return encipher(str,s)
+    return encoder(str,s)
 }
 
-fun getLargest(i: Map<Char, Int>, n:Int):Map<Char, Int>{
+fun getLargest(i: Map<Char, Int>, n:Int): Map<Char, Int> {
     return i.toList().sortedBy { (_, value) -> value.inv()}.take(n).toMap()
 }
 
@@ -18,7 +15,7 @@ fun modulus(i: Int, j: Int):Int {
     return (i+j)%j
 }
 
-fun offset(input:CharArray, value:Int):CharArray {
+fun offset(input:CharArray, value:Int): CharArray {
     return shiftString(input.joinToString().replace(", ",""), value).toCharArray()
 }
 
@@ -33,7 +30,9 @@ fun doesntEndWith(string: String): Boolean {
     val splitString = splitString(string.toLowerCase())
 
     return splitString.all {
-        if(it.length == 1) {true}
+        if(it.length == 1) {
+            true
+        }
         else {
             !it.endsWith("i",true) && !it.endsWith("u", true) &&
                     !it.endsWith("v",true) && !it.endsWith("j",true)
@@ -62,7 +61,7 @@ fun afterQisU(string: String): Boolean {
 
 fun doesntContainOnlyConsonants(string: String): Boolean {
 
-    val myCons = listOf('b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','x','z','w')
+    val myCons = CustomLibrary.listOfConsonants()
 
     val splitString = splitString(string.trim().toLowerCase())
 
@@ -70,7 +69,7 @@ fun doesntContainOnlyConsonants(string: String): Boolean {
 
 }
 
-//------------ CharArray Extension Functions ------------//
+//------------ Extension Functions ------------//
 
 fun String.charCount() = this.toLowerCase().replace(" ", "").groupBy {it}.mapValues { it.value.size }
 
@@ -86,10 +85,12 @@ fun CharArray.containsAll(charArrayToCompare: CharArray): Boolean {
 //------------------ Steps ------------------//
 
 fun firstStep(string: String) : Set<Int> {
+
+
     val charCount = string.charCount()
     val mostChars = getLargest(charCount, 5)
     val largestChar = getLargest(charCount, 1).keys.first()
-    val mostFrequentCharacters = charArrayOf('e','t','a','o','i','n','s','r','h')
+    val mostFrequentCharacters = CustomLibrary.arrayOfMostFrequentCharacters()
     val resultKeys = mutableSetOf<Int>()
 
     for(i in mostFrequentCharacters) {
@@ -106,56 +107,37 @@ fun firstStep(string: String) : Set<Int> {
     return resultKeys
 }
 
-/**
- *    Receives a String of a single word and returns true if
- *    it contains any of the most common double letter occurances.
- */
 val mostFrequentDoubleLetters = { string: String ->
 
+    val lstOfMostFrequentDoubleLetters = CustomLibrary.listOfMostFrequentDoubleLetters()
     tailrec fun loop(string:String): Boolean {
         return when {
             string.length <= 1 -> false
-            string[0] == string[1] -> listOf("ss","ee","tt","ff","ll","mm","oo").contains(string.substring(0,2))
+            string[0] == string[1] -> lstOfMostFrequentDoubleLetters.contains(string.substring(0,2))
             else -> loop(string.drop(1))
         }
     }
+
     loop(string)
 }
 
-/**
- *
- */
 val heuristicsOfRules = { string: String -> doesntEndWith(string) && singleLetterWorlds(string) &&
         if(string.contains("q",true)) { afterQisU(string) } else {
             true
-        } && !string.contains("sx") && doesntContainOnlyConsonants(string) }
-
-
-
+        } && !string.contains("sx") && doesntContainOnlyConsonants(string)
+}
 
 val mostFrequentWords = {string: String ->
 
-    //val ROOT = System.getProperty("user.dir") + "/CW2TestingDav"
-    // val beanFactory = ClassPathXmlApplicationContext("file:$ROOT/beans.xml")
+
     //Loading a list of string from an xml file with spring
-    val listWithMostFrequentWords = ListWithMostFrequentWords.myList()
+    val listWithMostFrequentWords = CustomLibrary.listOfMostCommonWords()
     if(splitString(string).all{it.length > 4})  {
         true
     } else {
         val filteredList = splitString(string).filter {listWithMostFrequentWords.contains(it.toLowerCase())}
         !filteredList.isEmpty()
     }
-
-}
-
-object ListWithMostFrequentWords {
-    private val ROOT = System.getProperty("user.dir")
-
-    private val beanFactory: BeanFactory
-        @Throws (Exception::class)
-        get() = ClassPathXmlApplicationContext("file:$ROOT/beans.xml")
-
-    fun myList():List<String> = beanFactory.getBean("myList") as List<String>
 
 }
 
@@ -200,31 +182,12 @@ fun decipher(string: String): String {
     //4th Attempt
     val setOfKeysAfterForthStep = filter(setOfKeysAfterThirdStep,string, heuristicsOfRules)
     if(wasItSuccessful(setOfKeysAfterForthStep)) {
-        println("Solve after forth attempt")
+        println("Solve in forth attempt")
         return shiftString(string,setOfKeysAfterForthStep.first())
     }
 
-
-    return "Dictionary under construction"
-
-}
-
-
-fun main(args: Array<String>){
-
-    val stringForSecondSetOfRules = encipher("It's a beautiful day.!!",1)
-    val t:String = "Good Morning"
-    val failingString = encipher(t,1)
-    val testingNewDecipherMethod = "No. If the pairing is braking down you should inform the instructor as soon as possible. If this is too near the submission date, and you completed the remainder of the assignment on your own, then you should turn in your assignment with just your name on it. You should state who you worked with and the reason why you did not finish the assignment together."
-    val e:String = encipher(testingNewDecipherMethod ,16)
-    val com:CharArray = charArrayOf('e', 't', 'a', 'o', 'i', 'n', 's', 'r', 'h')
-    val result = decipher(failingString)
-
-    println(result)
-    println(System.getProperty("user.dir"))
-
-    println("--------".repeat(4))
-
-    println("Testing Function")
+    //Failed to decipher
+    return "Caesar we can't decipher your message. Dictionary is under construction!"
 
 }
+

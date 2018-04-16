@@ -3,7 +3,7 @@
  *    by n characters. All remaining numeric and punctuation characters remain unaffected.
  *    Example:  [abcd!!] -> [bcde!!]
  */
-fun encipher(str: String, n: Int): String{
+fun encoder(str: String, n: Int): String {
 
     tailrec fun helper(remStr: String, n:Int, resultSoFar: String): String {
         return when {
@@ -19,3 +19,17 @@ fun encipher(str: String, n: Int): String{
     }
     return helper(str,n,"")
 }
+
+
+@Throws(IllegalArgumentException:: class)
+fun encipher(str:String, n: Int): String {
+    if(n<0 || n>25){
+        throw IllegalArgumentException("Shift must be between 0 and 25")
+
+    }
+    return encoder(str,n)
+}
+
+
+
+

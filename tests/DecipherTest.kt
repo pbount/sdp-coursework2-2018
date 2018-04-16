@@ -1,10 +1,12 @@
 import org.junit.Test
 import org.junit.Assert.*
 
+
 class DecipherTest {
 
     @Test
     fun shiftStringTest(){
+
         val shouldPass:List<String> = listOf(
                 "a",
                 "A",
@@ -16,7 +18,8 @@ class DecipherTest {
                 "With   Multiple    Spaces",
                 "With   Sp3$1aL   Ch@r@ct3rs!!!!"
         )
-        shouldPass.forEach { println("Testing: $it"); assertEquals(it,shiftString(encipher(it, 5),5)) }
+        shouldPass.forEach { println("Testing: $it"); assertEquals(it,shiftString(encoder(it, 5),5)) }
+
     }
 
     @Test
@@ -49,8 +52,8 @@ class DecipherTest {
                 "The word AII contains two capital i's"
         )
 
-        shouldBeTrue.forEach { println("Testing: $it"); assertEquals(true,doesntEndWith(it)) }
-        shouldBeFalse.forEach { println("Testing: $it"); assertEquals(false,doesntEndWith(it)) }
+        shouldBeTrue.forEach { println("Testing: $it"); assertTrue(doesntEndWith(it)) }
+        shouldBeFalse.forEach { println("Testing: $it"); assertFalse(doesntEndWith(it)) }
     }
 
 
@@ -67,9 +70,12 @@ class DecipherTest {
                 "There is no single letter word G",
                 "The space in the word G oogle ruins this test"
         )
-
-        shouldPass.forEach { println("Testing: $it"); assertEquals(true, singleLetterWorlds(it)) }
-        shouldFail.forEach { println("Testing: $it"); assertEquals(false, singleLetterWorlds(it)) }
+        assertTrue(shouldPass.all{
+            singleLetterWorlds(it)
+        })
+        assertFalse(shouldFail.all{
+            singleLetterWorlds(it)
+        })
     }
 
     @Test
@@ -84,8 +90,14 @@ class DecipherTest {
                 "qr quest Q test"
         )
 
-        shouldPass.forEach { println("Testing: $it"); assertEquals(true, afterQisU(it)) }
-        shouldFail.forEach { println("Testing: $it"); assertEquals(false, afterQisU(it)) }
+        assertTrue(shouldPass.all{
+            afterQisU(it)
+        })
+
+        assertFalse(shouldFail.all{
+            afterQisU(it)
+        })
+
     }
 
 
@@ -100,14 +112,18 @@ class DecipherTest {
                 "Thjs js nqt q wqrd",
                 "Thls shqvld nGvGr pqss"
         )
+        assertTrue(shouldPass.all{
+            doesntContainOnlyConsonants(it)
+        })
+        assertFalse(shouldFail.all{
+            doesntContainOnlyConsonants(it)
+        })
 
-        shouldPass.forEach { println("Testing: $it"); assertEquals(true, doesntContainOnlyConsonants(it)) }
-        shouldFail.forEach { println("Testing: $it"); assertEquals(false, doesntContainOnlyConsonants(it)) }
     }
 
     @Test
     fun mostFrequentDoubleLettersTest(){
-        val shouldBeTrue:List<String> = listOf(
+        val shouldPass:List<String> = listOf(
                 "Hello world!",
                 "Seeing is believing",
                 "A loop of wires",
@@ -115,22 +131,27 @@ class DecipherTest {
                 "tt rr gg rr tt ww dd ee"
         )
 
-        val shouldBeFalse:List<String> = listOf(
+        val shouldFail:List<String> = listOf(
                 "bb mm nn bb xx zz",
                 "Just a blizzard",
                 "pizza is love, pizza is life!",
                 "reign of terror",
                 "No doubles in this sentence"
         )
+        assertTrue(shouldPass.all{
+            mostFrequentDoubleLetters(it)
+        })
 
-        shouldBeTrue.forEach { println("Testing: $it"); assertEquals(true, mostFrequentDoubleLetters(it)) }
-        shouldBeFalse.forEach { println("Testing: $it"); assertEquals(false, mostFrequentDoubleLetters(it)) }
+        assertFalse(shouldFail.all{
+            mostFrequentDoubleLetters(it)
+        })
+
 
     }
 
     @Test
     fun mostFrequentWordsTest(){
-        val shouldBeTrue:List<String> = listOf(
+        val shouldPass:List<String> = listOf(
                 "This is true because it contains this",
                 "The is also a valid ward",
                 "kl ih gg sd tr to",
@@ -138,14 +159,18 @@ class DecipherTest {
                 "omits larger dictionary entries"
         )
 
-        val shouldBeFalse:List<String> = listOf(
+        val shouldFail:List<String> = listOf(
                 "Non existant dictionary words",
                 "",
                 "N0t 4 W0rd"
         )
+        assertTrue(shouldPass.all{
+            mostFrequentWords(it)
+        })
+        assertFalse(shouldFail.all{
+            mostFrequentWords(it)
+        })
 
-        shouldBeTrue.forEach { println("Testing: $it"); assertEquals(true, mostFrequentWords(it)) }
-        shouldBeFalse.forEach { println("Testing: $it"); assertEquals(false, mostFrequentWords(it)) }
 
     }
 
@@ -165,39 +190,12 @@ class DecipherTest {
             println("Testing: $it")
             assertEquals(
                     7,
-                    filter(steps, accepted[accepted.indexOf(it)], mostFrequentDoubleLetters).size)
+                    filter(steps, it, mostFrequentDoubleLetters).size)
         }
 
-        println(filter((0..25).toSet(), "Todd", mostFrequentDoubleLetters))
 
-
-        notAccepted.forEach {
-            println("Testing: $it");
-            assertEquals(0, filter(steps, notAccepted[notAccepted.indexOf(it)], mostFrequentDoubleLetters).size)
-        }
 
     }
-
-
-    @Test
-    fun setOfRulesTest() {
-        val shouldPass: List<String> = listOf(
-                "Awesome beautiful weather Birmingham not Quest query whatever I am a man who walks alone",
-                "QUrtxfe mjklbnedfg Questing in wow A train",
-                "Even though no single word is in this sentense it still should pass"
-        )
-
-        val shouldFail: List<String> = listOf(
-                "Awesome day t oday",
-                "Stars can t shine without darkness",
-                "C R T",
-                "7 is just a number"
-        )
-
-        shouldPass.forEach { println("Testing: $it"); assertEquals(true, singleLetterWorlds(it)) }
-        shouldFail.forEach { println("Testing: $it"); assertEquals(false, singleLetterWorlds(it)) }
-    }
-
 
     @Test
     fun wasItSuccessfulTest() {
@@ -209,8 +207,8 @@ class DecipherTest {
                 setOf<Int>(), setOf(1,2,3), setOf(2,3)
         )
 
-        shouldPass.forEach { assertEquals(true, wasItSuccessful(it)) }
-        shouldFail.forEach { assertEquals(false, wasItSuccessful(it)) }
+        shouldPass.forEach { assertTrue(wasItSuccessful(it)) }
+        shouldFail.forEach { assertFalse(wasItSuccessful(it)) }
     }
 
     @Test
@@ -226,6 +224,9 @@ class DecipherTest {
                 "She commanded that work on the bridge cease immediately.",
                 "Fish is a healthy food"
         )
+        assertTrue(listOfStrings.all {
+            mostFrequentDoubleLetters(it)
+        })
 
 
     }
@@ -239,10 +240,10 @@ class DecipherTest {
         val shouldFail = "Good morning."
 
         for(i in 1..25) {
-            kotlin.test.assertEquals(shouldPass, decipher(encipher(shouldPass, i)))
-            kotlin.test.assertEquals(shouldPass1, decipher(encipher(shouldPass1, i)))
-            kotlin.test.assertEquals(shouldPass2, decipher(encipher(shouldPass2, i)))
-            kotlin.test.assertEquals(shouldFail, decipher(encipher(shouldFail, i)))
+            assertEquals(shouldPass, decipher(encoder(shouldPass, i)))
+            assertEquals(shouldPass1, decipher(encoder(shouldPass1, i)))
+            assertEquals(shouldPass2, decipher(encoder(shouldPass2, i)))
+            assertEquals(shouldFail, decipher(encoder(shouldFail, i)))
         }
     }
 }
