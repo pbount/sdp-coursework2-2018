@@ -1,7 +1,17 @@
 /**
- *    Receives a String and an Int and shifts each alphabetical character regardless of letter case
+ *    Receives a String and an Int (n) and shifts each alphabetical character regardless of letter case
  *    by n characters. All remaining numeric and punctuation characters remain unaffected.
- *    Example:  [abcd!!] -> [bcde!!]
+ *    Example: encoder("abcd??", 1)  -> "bcde??"
+ *
+ *    Encoder uses parts of the Ascii Table, namely ranges 65 - 90 for Uppercase
+ *    and 97 - 122 for Lowercase alphabetical characters.
+ *
+ *    The formula used is:
+ *      x: numeric representation of character
+ *      n: encoding number
+ *      b: base of the range of characters (65 for uppercase or 97 for lowercase)
+ *
+ *         ((x + n - b) rem 26) + 65
  */
 fun encoder(str: String, n: Int): String {
 
@@ -20,7 +30,12 @@ fun encoder(str: String, n: Int): String {
     return helper(str,n,"")
 }
 
-
+/**
+ * Encipher is an adapter function with the purpose of restricting the user
+ * from entering values outside the designated range.
+ * Only values between 0 and 25 (inclusive) are allowed. Anything outside that range
+ * halts the execution.
+ */
 @Throws(IllegalArgumentException:: class)
 fun encipher(str:String, n: Int): String {
     if(n<0 || n>25){
