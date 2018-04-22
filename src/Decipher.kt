@@ -17,6 +17,12 @@ fun getLargest(i: Map<Char, Int>, n:Int): Map<Char, Int> {
     return i.toList().sortedBy { (_, value) -> value.inv()}.take(n).toMap()
 }
 
+/**
+ * The 'modulus function is nesessary because kotlins '%' remainder operator returns
+ * incorrect values for negative numbers.
+ * Example: -21 mod 4 is 3 because -21 + 4 x 6 is 3.
+ *      But -21 divided by 4 gives -5 with a remainder of -1.
+ */
 fun modulus(i: Int, j: Int):Int {
     return (i+j)%j
 }
