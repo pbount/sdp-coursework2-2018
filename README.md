@@ -1,5 +1,5 @@
 # sdp-coursework2-2018
-###### By Vasilios Davios (vdavio01), Pavlos Bountagkidis(pbount01)
+###### By Vasilios Davios (vdavio01), Pavlos Bountagkidis (pbount01)
 
 ## Objective
 The problem is a programmatic implementation of Caesar (De)Cipher consisting of two parts each focused on a main function:
